@@ -33,7 +33,8 @@ parser code {:
 
 /////////////////////////////////////////////////////////////////////////////
 
-terminal LPARENT,RPARENT,MULT,COS,DIV,MOD,PLUS,MIN,EQUAL,NOT_EQUAL,LESS,GREATER,LESS_EQUAL,GREATER_EQUAL,NOT,AND,OR,SEMI;
+terminal 
+LPARENT,RPARENT,MULT,COS,DIV,MOD,PLUS,MIN,UMIN,EQUAL,NOT_EQUAL,LESS,GREATER,LESS_EQUAL,GREATER_EQUAL,NOT,AND,OR,SEMI;
 terminal Boolean   BOOLEAN;
 terminal Double    NUMBER;
 
@@ -45,7 +46,7 @@ non terminal Object  S;
 precedence left PLUS, MIN;
 precedence left MULT, DIV, COS, MOD;
 precedence left NOT,AND,OR;
-
+precedence left UMIN;
 
 
 S  ::=  Num2NumOp:op  {: System.out.println(" = " + op); RESULT= op; :} SEMI |
@@ -63,7 +64,8 @@ Num2NumOp ::= 	Num2NumOp:n1 PLUS Num2NumOp:n2  {:RESULT= n1 + n2;:} |
 		Num2NumOp:n1 MULT Num2NumOp:n2  {:RESULT= n1 * n2;:} |
 		Num2NumOp:n1 DIV  Num2NumOp:n2  {:RESULT= (double)(int) (n1 / n2);:} |
 		Num2NumOp:n1 COS  Num2NumOp:n2  {:RESULT= n1 / n2 ;:} |
-		Num2NumOp:n1 MOD  Num2NumOp:n2  {:RESULT= n1 % n2;:}; 
+		Num2NumOp:n1 MOD  Num2NumOp:n2  {:RESULT= n1 % n2;:} |
+		MIN Num2NumOp:n {:RESULT = new Double(0 - n);:} %prec UMIN; 
 
 Num2NumOp ::= 	LPARENT Num2NumOp:n RPARENT 	{:RESULT=n; :};
 Num2NumOp ::= 	NUMBER:n 		    	{:RESULT= new Double(n);:};			
@@ -91,7 +93,7 @@ Num2BoolOp ::=  LPARENT Num2BoolOp:b RPARENT {:RESULT=b;:};
 
 //////////////////////////////////////////////////////////////////////////
 
-
+/*
 Obj2BoolOp ::= 	Bool2BoolOp 	EQUAL  		Num2NumOp {:RESULT= false;:}|
 	       	Num2NumOp 	EQUAL  		Bool2BoolOp {:RESULT= false;:}|
 		Bool2BoolOp:n1  EQUAL           Bool2BoolOp:n2 {:RESULT= n1.compareTo(n2);:}|
@@ -107,7 +109,7 @@ Obj2BoolOp ::= 	Bool2BoolOp 	EQUAL  		Num2NumOp {:RESULT= false;:}|
                	Num2NumOp 	GREATER_EQUAL   Bool2BoolOp {:RESULT= false;:};
 
 Obj2BoolOp ::= LPARENT Obj2BoolOp:b RPARENT {:RESULT=b;:};
-	       	
+*/	       	
 
 ///////////////////////////////////////////////////////////////////////////
 
