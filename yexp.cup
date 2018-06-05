@@ -93,10 +93,10 @@ Num2BoolOp ::=  LPARENT Num2BoolOp:b RPARENT {:RESULT=b;:};
 
 //////////////////////////////////////////////////////////////////////////
 
-/*
+
 Obj2BoolOp ::= 	Bool2BoolOp 	EQUAL  		Num2NumOp {:RESULT= false;:}|
 	       	Num2NumOp 	EQUAL  		Bool2BoolOp {:RESULT= false;:}|
-		Bool2BoolOp:n1  EQUAL           Bool2BoolOp:n2 {:RESULT= n1.compareTo(n2);:}|
+		Bool2BoolOp:n1  EQUAL           Bool2BoolOp:n2 {:RESULT= n1.equals(n2);:}|
 	       	Bool2BoolOp 	NOT_EQUAL 	Num2NumOp {:RESULT= true;:}|
                	Num2NumOp 	NOT_EQUAL  	Bool2BoolOp {:RESULT= true;:}|
 	       	Bool2BoolOp 	LESS 		Num2NumOp {:RESULT= false;:}|
@@ -109,7 +109,7 @@ Obj2BoolOp ::= 	Bool2BoolOp 	EQUAL  		Num2NumOp {:RESULT= false;:}|
                	Num2NumOp 	GREATER_EQUAL   Bool2BoolOp {:RESULT= false;:};
 
 Obj2BoolOp ::= LPARENT Obj2BoolOp:b RPARENT {:RESULT=b;:};
-*/	       	
+	       	
 
 ///////////////////////////////////////////////////////////////////////////
 

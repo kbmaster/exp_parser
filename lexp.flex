@@ -30,8 +30,7 @@ Boolean = true | false
    
 <YYINITIAL> {
    
-	";"     { return symbol(sym.SEMI); }
-	
+	";" { return symbol(sym.SEMI); }
 	"+"	{ System.out.print(" + "); return symbol(sym.PLUS);}
 	"-"	{ System.out.print(" - "); return symbol(sym.MIN);}
 	"*"     { System.out.print(" * "); return symbol(sym.MULT); }
