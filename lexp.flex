@@ -22,7 +22,7 @@ import java_cup.runtime.*;
 /////////////////////////////////////////////////////////////////////////////   
 
 LineTerminator = \r|\n|\r\n
-WhiteSpace     = {LineTerminator}|[ \t\f]
+WhiteSpace     = [ \t\f]
 Number = (0|[1-9][0-9]*)(\.[0-9]+)?((e|E)(\+|-)?[0-9]+)?
 Boolean = true | false
    
@@ -30,7 +30,6 @@ Boolean = true | false
    
 <YYINITIAL> {
    
-	";" { return symbol(sym.SEMI); }
 	"+"	{ System.out.print(" + "); return symbol(sym.PLUS);}
 	"-"	{ System.out.print(" - "); return symbol(sym.MIN);}
 	"*"     { System.out.print(" * "); return symbol(sym.MULT); }
@@ -54,8 +53,9 @@ Boolean = true | false
 		
         {Number}     { System.out.print(yytext());  return symbol(sym.NUMBER, new Double(yytext()));}
 	{Boolean}    { System.out.print(yytext()); return symbol(sym.BOOLEAN,new Boolean(yytext()));}	
-   
-        {WhiteSpace}       { /* nop */ }   
+   	
+	{LineTerminator} {return  symbol(sym.EOL);}
+        {WhiteSpace}     { /* nop */ }   
 }
 
 [^]                    { throw new Error("Illegal character <"+yytext()+">"); }

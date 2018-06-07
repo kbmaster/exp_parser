@@ -34,25 +34,26 @@ parser code {:
 /////////////////////////////////////////////////////////////////////////////
 
 terminal 
-LPARENT,RPARENT,MULT,COS,DIV,MOD,PLUS,MIN,UMIN,EQUAL,NOT_EQUAL,LESS,GREATER,LESS_EQUAL,GREATER_EQUAL,NOT,AND,OR,SEMI;
+LPARENT,RPARENT,MULT,COS,DIV,MOD,PLUS,MIN,UMIN,EQUAL,NOT_EQUAL,LESS,GREATER,LESS_EQUAL,GREATER_EQUAL,NOT,AND,OR,EOL;
 terminal Boolean   BOOLEAN;
 terminal Double    NUMBER;
 
 non terminal Double  Num2NumOp;
 non terminal Boolean Bool2BoolOp;
 non terminal Boolean Num2BoolOp,Obj2BoolOp;
-non terminal Object  S;
+non terminal Object  S,E;
 
 precedence left PLUS, MIN;
 precedence left MULT, DIV, COS, MOD;
 precedence left NOT,AND,OR;
 precedence left UMIN;
 
-
-S  ::=  Num2NumOp:op  {: System.out.println(" = " + op); RESULT= op; :} SEMI |
-	Bool2BoolOp:op{: System.out.println(" = " + op); RESULT= op; :} SEMI |
-	Obj2BoolOp:op {: System.out.println(" = " + op); RESULT= op; :} SEMI |
-	Num2BoolOp:op {: System.out.println(" = " + op); RESULT= op; :} SEMI;
+//una operacion por linea
+S  ::= S E | E; 
+E  ::=  Num2NumOp:op  {: System.out.println(" = " + op); RESULT= op; :} EOL |
+	Bool2BoolOp:op{: System.out.println(" = " + op); RESULT= op; :} EOL |
+	Obj2BoolOp:op {: System.out.println(" = " + op); RESULT= op; :} EOL |
+	Num2BoolOp:op {: System.out.println(" = " + op); RESULT= op; :} EOL;
 
 
 /////////////////////////////////////////////////////////////////////////
