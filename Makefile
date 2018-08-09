@@ -1,7 +1,7 @@
 JAVA=java
 JAVAC=javac
 JFLEX=jflex
-CUPJAR=../../tools/cup/java-cup-11b.jar
+CUPJAR=/home/kbmaster/lenguajes/tools/cup/java-cup-11b.jar
 CUP=$(JAVA) -jar $(CUPJAR) <
 CP=.:$(CUPJAR)
 

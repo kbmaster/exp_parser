@@ -24,6 +24,7 @@ import java_cup.runtime.*;
 LineTerminator = \r|\n|\r\n
 WhiteSpace     = [ \t\f]
 Number = (0|[1-9][0-9]*)(\.[0-9]+)?((e|E)(\+|-)?[0-9]+)?
+Hex    = 0[xX]{1}[0-9A-Fa-f]{4}
 Boolean = true | false
    
 %%
@@ -34,11 +35,10 @@ Boolean = true | false
 	"-"	{ System.out.print(" - "); return symbol(sym.MIN);}
 	"*"     { System.out.print(" * "); return symbol(sym.MULT); }
  	"/"    { System.out.print(" / "); return symbol(sym.COS); }
-        "//"    { System.out.print(" // "); return symbol(sym.DIV); }
         "%"     { System.out.print(" % "); return symbol(sym.MOD); }
 	
 	"=="	{ System.out.print(" == "); return symbol(sym.EQUAL);}
-	"!="    { System.out.print(" != "); return symbol(sym.NOT_EQUAL);}
+	"/="    { System.out.print(" != "); return symbol(sym.NOT_EQUAL);}
 	"<"	{ System.out.print(" < "); return symbol(sym.LESS); }
 	">"	{ System.out.print(" > "); return symbol(sym.GREATER); }
 	"<="	{ System.out.print(" <= "); return symbol(sym.LESS_EQUAL); }
@@ -52,6 +52,7 @@ Boolean = true | false
         ")"     { System.out.print(")"); return symbol(sym.RPARENT); }
 		
         {Number}     { System.out.print(yytext());  return symbol(sym.NUMBER, new Double(yytext()));}
+	{Hex}	     { System.out.print(yytext());  return symbol(sym.NUMBER, new Double(Integer.decode(yytext())));}	
 	{Boolean}    { System.out.print(yytext()); return symbol(sym.BOOLEAN,new Boolean(yytext()));}	
    	
 	{LineTerminator} {return  symbol(sym.EOL);}
